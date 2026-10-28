@@ -15,15 +15,57 @@ class WorkWithArrays {
     }
 
     static int[] evenElements(final int[] array) {
-        return null;
+        int length;
+        if (array.length % 2 == 0) {
+            length = array.length / 2;
+        } else {
+            length = (array.length / 2) + 1;
+        }
+        
+        final int[] newArray = new int[length];
+
+        for (int i = 0; i < array.length; i+=2) {
+            newArray[i / 2] = array[i];
+        }
+
+        return newArray;
     }
 
     static int[] oddElements(final int[] array) {
-        return null;
+        int length;
+        if (array.length % 2 == 0) {
+            length = array.length / 2;
+        } else {
+            length = (array.length / 2) + 1;
+        }
+
+        final int[] newArray = new int[length];
+
+        for (int i = 1; i < array.length; i += 2) {
+            newArray[(i - 1) / 2] = array[i];
+        }
+
+        return newArray;
     }
 
     static int mostRecurringElement(final int[] array) {
-        return 0;
+        int element = 0;
+        int elementCount = 0;
+        int currentCount = 0;
+
+        Arrays.sort(array);
+
+        for (int i = 0; i < array.length ; i++) {
+            if (currentCount > elementCount) {
+                element = array[i];
+            }
+            if (i > 0 && array[i] == array[i - 1]) {
+                currentCount += 1;
+            } else {
+                currentCount = 1;
+            }
+        } 
+        return element;
     }
 
     static int[] sortArray(final int[] array, final boolean isDescending) {
@@ -55,7 +97,8 @@ class WorkWithArrays {
         return countOccurrencies(new int[] { 1, 2, 3, 4 }, 1) == 1
             && countOccurrencies(new int[] { 0, 2, 3, 4 }, 1) == 0
             && countOccurrencies(new int[] { 7, 4, 1, 9, 3, 1, 5 }, 2) == 0
-            && countOccurrencies(new int[] { 1, 2, 1, 3, 4, 1 }, 1) == 3;
+            && countOccurrencies(new int[] { 1, 2, 1, 3, 4, 1 }, 1) == 3
+            && countOccurrencies(new int[] { 6, 7, 6, 7 }, 6) == 2;
     }
 
     /* Utility method for testing evenElems method */
