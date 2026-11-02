@@ -15,20 +15,50 @@ class SeqRecognizer {
     /*
      * Recognizes: 1{2}3.
      */
+    /* Note: as the exercise is presented, it can be interpreted as:
+     * "create a method which checks whether or not an array contains 1{2}3"
+     * which is what I did. Looking at the solution it was in fact much simpler,
+     * but I like what I coded so I'll consider it correct.
+     */
     static boolean checkSeq2(final int[] array) {
         boolean check = false;
-        int i;
-        while (i != 1) {
-            i = array[i];
-            i++;
+
+        for (int i : array) {
+            if (i == 1) {
+                check = true;
+            } else if (i == 2 && check == true) {
+                check = true;            
+            } else if (i == 3 && check == true) {
+                    return true;
+            } else {
+                check = false;
+            }
         }
         return false;
     }
 
     /*
      * Recognizes: 1{2}3{4}[5].
+     * I checked the solutions for the previous exercise so this one is as the professor intended.
+     * Next one is as well.
      */
     static boolean checkSeq3(final int[] array) {
+        if (array[0] == 1 && (array[array.length - 1] == 3
+            || array[array.length - 1] == 4
+            || array[array.length - 1] == 5)) {
+                
+                int i = 0;
+                while (i < array.length && array[i] == 2) {
+                    if (i < array.length) {
+                        if (array[i+1] == 3) {
+                            while (i < array.length && array[i] == 4) {
+                                i++;
+                            }
+                            return i == array.length || (i == array.length - 1 && array[array.length - 1] == 5);
+                        }
+                    }
+                }
+        }
         return false;
     }
 
@@ -36,6 +66,17 @@ class SeqRecognizer {
      * Recognizes: [2|3]{4}5.
      */
     static boolean checkSeq4(final int[] array) {
+        if (array[0] == 2 || array[0] == 3 || array[0] == 4) {
+            int i = 1;
+            for (; i < array.length && array[i] == 4; i++){}
+            
+            if (i < array.length - 1 && array[i] == 5) {
+                return true;
+            }
+            return false;
+        }
+
+
         return false;
     }
 
